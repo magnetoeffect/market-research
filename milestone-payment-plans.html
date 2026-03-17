@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tax Resolution — Milestone Payment Plans</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8;
+    --surface: #FFFFFF;
+    --surface-alt: #F4F3EF;
+    --text: #1A1A18;
+    --text-muted: #6B6B66;
+    --text-faint: #9C9C96;
+    --border: #E5E4DF;
+    --green: #2D6A4F;
+    --green-bg: #EDF5F0;
+    --purple: #7B4B94;
+    --purple-bg: #F3EDF7;
+    --amber: #BF6A20;
+    --amber-bg: #FDF3E7;
+    --blue: #2563A8;
+    --blue-bg: #EBF2FA;
+    --red: #B91C1C;
+    --red-bg: #FDF0F0;
+    --gray: #555555;
+    --gray-bg: #F2F2F2;
+    --font: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 40px 24px 80px; }
+  header { margin-bottom: 40px; }
+  header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+  header p { font-size: 15px; color: var(--text-muted); max-width: 720px; }
+
+  .nav-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 32px; border-bottom: 1px solid var(--border); padding-bottom: 0; }
+  .nav-tab { padding: 10px 16px; font-size: 12px; font-weight: 600; font-family: var(--font); border: none; background: none; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; white-space: nowrap; }
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.active { color: var(--text); border-bottom-color: var(--text); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .panel-header { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 24px; }
+  .badge { flex-shrink: 0; width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: white; }
+  .panel-meta h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 2px; }
+  .panel-meta .sub { font-size: 14px; color: var(--text-muted); }
+
+  .summary-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 28px; }
+  .summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .summary-card .label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-faint); margin-bottom: 2px; }
+  .summary-card .value { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+
+  .principle-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 28px; }
+  .principle-box h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 8px; }
+  .principle-box p { font-size: 14px; color: var(--text-muted); }
+
+  .milestone-table { width: 100%; border-collapse: collapse; margin-bottom: 28px; font-size: 14px; }
+  .milestone-table th { text-align: left; padding: 10px 14px; background: var(--surface-alt); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-faint); border-bottom: 1px solid var(--border); }
+  .milestone-table td { padding: 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .milestone-table tr:last-child td { border-bottom: none; }
+
+  .ms-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; font-size: 12px; font-weight: 700; color: white; margin-right: 8px; flex-shrink: 0; }
+  .ms-title { font-weight: 600; font-size: 14px; }
+  .ms-desc { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+  .ms-amount { font-weight: 700; font-size: 15px; white-space: nowrap; }
+  .ms-pct { font-size: 12px; color: var(--text-faint); font-weight: 500; }
+  .ms-trigger { font-size: 12px; font-family: var(--mono); color: var(--text-muted); background: var(--surface-alt); padding: 3px 8px; border-radius: 4px; display: inline-block; margin-top: 4px; }
+  .ms-client { font-size: 12px; font-weight: 600; color: var(--amber); background: #FFF8E1; border: 1px solid #FFECB3; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-top: 4px; }
+
+  .why-box { background: #F1F8E9; border: 1px solid #C5E1A5; border-radius: 10px; padding: 18px 20px; margin-bottom: 20px; }
+  .why-box h3 { font-size: 13px; font-weight: 700; color: #33691E; margin-bottom: 6px; }
+  .why-box p { font-size: 14px; color: #33691E; }
+
+  .risk-box { background: #FFF8F8; border: 1px solid #FFCDD2; border-radius: 10px; padding: 18px 20px; }
+  .risk-box h3 { font-size: 13px; font-weight: 700; color: #C62828; margin-bottom: 6px; }
+  .risk-box p { font-size: 14px; color: #5D4037; }
+
+  @media (max-width: 640px) {
+    .nav-tab { padding: 8px 10px; font-size: 11px; }
+    .summary-row { grid-template-columns: repeat(2, 1fr); }
+    header h1 { font-size: 22px; }
+    .milestone-table { font-size: 13px; }
+    .milestone-table td, .milestone-table th { padding: 10px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Milestone-based payment plans</h1>
+    <p>Payment structures tied to real case progress for each tax resolution type. Each milestone requires a payment before the case advances — keeping clients engaged, responsive, and financially committed throughout the lifecycle.</p>
+  </header>
+
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="show('ia')">IA — $8,000</button>
+    <button class="nav-tab" onclick="show('oic')">OIC — $10,000</button>
+    <button class="nav-tab" onclick="show('cnc')">CNC — $5,000</button>
+    <button class="nav-tab" onclick="show('pa')">Penalty abate — $5,000</button>
+    <button class="nav-tab" onclick="show('levy')">Levy/lien — $12,000</button>
+    <button class="nav-tab" onclick="show('cdp')">CDP — $18,000</button>
+  </div>
+
+  <!-- ===== INSTALLMENT AGREEMENT ===== -->
+  <div id="ia" class="panel active">
+    <div class="panel-header">
+      <div class="badge" style="background: var(--green);">IA</div>
+      <div class="panel-meta">
+        <h2>Installment agreement — $8,000</h2>
+        <p class="sub">4-payment milestone plan tied to case progression</p>
+      </div>
+    </div>
+    <div class="summary-row">
+      <div class="summary-card"><div class="label">Total fee</div><div class="value">$8,000</div></div>
+      <div class="summary-card"><div class="label">Payments</div><div class="value">4</div></div>
+      <div class="summary-card"><div class="label">Due on signing</div><div class="value">$2,500</div></div>
+      <div class="summary-card"><div class="label">Timeline</div><div class="value">2–8 weeks</div></div>
+    </div>
+    <div class="principle-box">
+      <h3>Payment logic</h3>
+      <p>Front-loaded to secure commitment — 31% collected on the call. Each subsequent payment unlocks the next phase of IRS engagement. The client can't stall on documents because their case literally pauses until payment and materials are received. Final payment is due before the IRS approves the agreement, giving the client a clear finish line.</p>
+    </div>
+    <table class="milestone-table">
+      <thead><tr><th>Milestone</th><th>Payment</th><th>Trigger & what client must deliver</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="ms-num" style="background: var(--green);">1</span><span class="ms-title">Engagement & POA filing</span><div class="ms-desc">Sign agreement, file Form 2848, pull IRS transcripts, assess total liability</div></td>
+          <td><div class="ms-amount">$2,500</div><div class="ms-pct">31%</div></td>
+          <td><div class="ms-trigger">Due on signing call</div><div class="ms-client">Client delivers: signed agreement, ID, basic tax info</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--green);">2</span><span class="ms-title">Financial disclosure complete</span><div class="ms-desc">Complete Form 433-F or 433-A with all supporting documentation. Determine IA type (streamlined vs non-streamlined)</div></td>
+          <td><div class="ms-amount">$2,500</div><div class="ms-pct">31%</div></td>
+          <td><div class="ms-trigger">Due before 433 submission to IRS</div><div class="ms-client">Client delivers: 3 months bank statements, pay stubs, mortgage/rent proof, asset docs</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--green);">3</span><span class="ms-title">IA submission to IRS</span><div class="ms-desc">Submit Form 9465 or call ACS/Revenue Officer to propose agreement terms</div></td>
+          <td><div class="ms-amount">$1,500</div><div class="ms-pct">19%</div></td>
+          <td><div class="ms-trigger">Due before IRS submission</div><div class="ms-client">Client delivers: any outstanding compliance items (unfiled returns, estimated payments)</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--green);">4</span><span class="ms-title">IRS approval & setup</span><div class="ms-desc">IA approved, first payment date set, lien status confirmed, case closed out</div></td>
+          <td><div class="ms-amount">$1,500</div><div class="ms-pct">19%</div></td>
+          <td><div class="ms-trigger">Due on approval notification</div><div class="ms-client">Client confirms: direct debit setup, first IA payment scheduled</div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="why-box">
+      <h3>Why this works for the client</h3>
+      <p>They never pay for work that hasn't been done. Each payment unlocks a tangible next step — transcript analysis, financial assessment, IRS submission, and final approval. The heaviest document burden (milestone 2) is gated behind a payment, which creates natural accountability: "We need your bank statements and your second payment to move forward." Clients who go dark after milestone 1 have only cost you $2,500 worth of effort (POA filing and transcripts), not the full case.</p>
+    </div>
+    <div class="risk-box">
+      <h3>What if the client stops paying?</h3>
+      <p>Case pauses at whatever milestone they've reached. All work completed to that point is earned and non-refundable. POA remains active so the IRS contacts your firm, not the client — which creates continued motivation for the client to re-engage. Agreement should specify that payments are earned upon receipt and tied to milestones completed, not outcomes achieved.</p>
+    </div>
+  </div>
+
+  <!-- ===== OFFER IN COMPROMISE ===== -->
+  <div id="oic" class="panel">
+    <div class="panel-header">
+      <div class="badge" style="background: var(--purple);">OIC</div>
+      <div class="panel-meta">
+        <h2>Offer in compromise — $10,000</h2>
+        <p class="sub">5-payment milestone plan across a 6–24 month lifecycle</p>
+      </div>
+    </div>
+    <div class="summary-row">
+      <div class="summary-card"><div class="label">Total fee</div><div class="value">$10,000</div></div>
+      <div class="summary-card"><div class="label">Payments</div><div class="value">5</div></div>
+      <div class="summary-card"><div class="label">Due on signing</div><div class="value">$3,000</div></div>
+      <div class="summary-card"><div class="label">Timeline</div><div class="value">6–24 months</div></div>
+    </div>
+    <div class="principle-box">
+      <h3>Payment logic</h3>
+      <p>Spread over a longer lifecycle because OICs take 6–24 months. Front-loaded 30% on signing, with the second largest payment gated behind the most document-intensive phase (financial disclosure). The IRS submission payment ensures you're paid before committing the $205 application fee and 20% lump sum on behalf of the client. The final two payments cover the long negotiation and compliance monitoring phases.</p>
+    </div>
+    <table class="milestone-table">
+      <thead><tr><th>Milestone</th><th>Payment</th><th>Trigger & what client must deliver</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="ms-num" style="background: var(--purple);">1</span><span class="ms-title">Engagement & investigation</span><div class="ms-desc">Sign agreement, file POA, pull transcripts, assess liability, verify OIC eligibility via pre-qualifier</div></td>
+          <td><div class="ms-amount">$3,000</div><div class="ms-pct">30%</div></td>
+          <td><div class="ms-trigger">Due on signing call</div><div class="ms-client">Client delivers: signed agreement, ID, list of all tax years with issues</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--purple);">2</span><span class="ms-title">Financial disclosure & RCP calculation</span><div class="ms-desc">Complete Form 433-A (OIC) and/or 433-B (OIC), calculate Reasonable Collection Potential, determine offer amount</div></td>
+          <td><div class="ms-amount">$2,500</div><div class="ms-pct">25%</div></td>
+          <td><div class="ms-trigger">Due before RCP analysis begins</div><div class="ms-client">Client delivers: complete financial picture — bank statements, pay stubs, property valuations, retirement accounts, vehicle values, loan statements</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--purple);">3</span><span class="ms-title">OIC package submission</span><div class="ms-desc">Prepare and submit Form 656, 433-A/B (OIC), $205 fee, and 20% lump sum or first periodic payment</div></td>
+          <td><div class="ms-amount">$2,000</div><div class="ms-pct">20%</div></td>
+          <td><div class="ms-trigger">Due before submission to IRS</div><div class="ms-client">Client delivers: $205 application fee + 20% of offer amount (lump sum) or first periodic payment</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--purple);">4</span><span class="ms-title">IRS negotiation & review</span><div class="ms-desc">Respond to IRS information requests, negotiate counter-offers, manage the 6–24 month review period</div></td>
+          <td><div class="ms-amount">$1,500</div><div class="ms-pct">15%</div></td>
+          <td><div class="ms-trigger">Due 90 days after OIC submission (or upon first IRS contact)</div><div class="ms-client">Client delivers: any additional documents IRS requests, continued estimated tax payments</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--purple);">5</span><span class="ms-title">Resolution — acceptance, rejection appeal, or pivot</span><div class="ms-desc">OIC accepted (pay remaining balance per terms), or rejected (file Form 13711 appeal or pivot to IA/CNC)</div></td>
+          <td><div class="ms-amount">$1,000</div><div class="ms-pct">10%</div></td>
+          <td><div class="ms-trigger">Due on determination letter</div><div class="ms-client">Client confirms: acceptance of OIC terms or decision to appeal/pivot</div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="why-box">
+      <h3>Why this works for the client</h3>
+      <p>OICs are the longest and most uncertain resolution path. Spreading payments over 5 milestones across 6–24 months means the client is never more than $2,000–$3,000 away from their next milestone. The heaviest payment is on signing when urgency is highest. By milestone 4, they've already invested $7,500 — psychologically, they're committed to seeing it through.</p>
+    </div>
+    <div class="risk-box">
+      <h3>What if the client stops paying?</h3>
+      <p>The OIC submission (milestone 3) is the critical gate. If a client stalls after milestone 2, you've done the investigation and financial analysis but haven't submitted to the IRS — so your exposure is contained. The client's own 20% lump sum payment to the IRS is due at the same milestone as your payment 3, which creates aligned incentives: they're paying both you and the IRS at the same time to move forward.</p>
+    </div>
+  </div>
+
+  <!-- ===== CURRENTLY NOT COLLECTIBLE ===== -->
+  <div id="cnc" class="panel">
+    <div class="panel-header">
+      <div class="badge" style="background: var(--amber);">CNC</div>
+      <div class="panel-meta">
+        <h2>Currently not collectible — $5,000</h2>
+        <p class="sub">3-payment milestone plan — faster resolution, simpler structure</p>
+      </div>
+    </div>
+    <div class="summary-row">
+      <div class="summary-card"><div class="label">Total fee</div><div class="value">$5,000</div></div>
+      <div class="summary-card"><div class="label">Payments</div><div class="value">3</div></div>
+      <div class="summary-card"><div class="label">Due on signing</div><div class="value">$2,000</div></div>
+      <div class="summary-card"><div class="label">Timeline</div><div class="value">2–6 weeks</div></div>
+    </div>
+    <div class="principle-box">
+      <h3>Payment logic</h3>
+      <p>CNC is a simpler case type — the IRS just needs to verify the client can't pay. Three payments, front-loaded 40% on signing. The second payment gates the financial disclosure (where most client effort is required). The final payment is earned when the IRS confirms CNC status — a clear, tangible outcome the client can see.</p>
+    </div>
+    <table class="milestone-table">
+      <thead><tr><th>Milestone</th><th>Payment</th><th>Trigger & what client must deliver</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="ms-num" style="background: var(--amber);">1</span><span class="ms-title">Engagement & transcript analysis</span><div class="ms-desc">Sign agreement, file POA, pull transcripts, confirm total balance and CSED dates</div></td>
+          <td><div class="ms-amount">$2,000</div><div class="ms-pct">40%</div></td>
+          <td><div class="ms-trigger">Due on signing call</div><div class="ms-client">Client delivers: signed agreement, ID, basic financial overview</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--amber);">2</span><span class="ms-title">Financial disclosure & hardship submission</span><div class="ms-desc">Complete Form 433-F (phone) or 433-A (written), demonstrate income ≤ allowable living expenses, submit hardship case to IRS</div></td>
+          <td><div class="ms-amount">$1,500</div><div class="ms-pct">30%</div></td>
+          <td><div class="ms-trigger">Due before IRS hardship submission</div><div class="ms-client">Client delivers: income proof, expense documentation, bank statements</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--amber);">3</span><span class="ms-title">CNC status confirmed</span><div class="ms-desc">IRS places account in CNC (TC 530), collection activity ceases, case closed out with ongoing monitoring guidance</div></td>
+          <td><div class="ms-amount">$1,500</div><div class="ms-pct">30%</div></td>
+          <td><div class="ms-trigger">Due on CNC confirmation</div><div class="ms-client">Client confirms: understands ongoing filing requirements and annual review process</div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="why-box">
+      <h3>Why this works for the client</h3>
+      <p>CNC clients are by definition in financial hardship — they literally can't pay the IRS. Keeping the payment plan to just 3 milestones with the lowest single payment at $1,500 makes it manageable. The outcome is tangible and fast: "The IRS agreed to leave you alone." That's a powerful motivator to push through the document gathering at milestone 2.</p>
+    </div>
+    <div class="risk-box">
+      <h3>Upsell opportunity</h3>
+      <p>CNC clients whose CSED is 5+ years away are prime candidates for a future OIC once their financial situation stabilises slightly. Annual monitoring check-ins (which can be a separate low-cost retainer) keep the relationship alive for this future conversion.</p>
+    </div>
+  </div>
+
+  <!-- ===== PENALTY ABATEMENT ===== -->
+  <div id="pa" class="panel">
+    <div class="panel-header">
+      <div class="badge" style="background: var(--blue);">PA</div>
+      <div class="panel-meta">
+        <h2>Penalty abatement — $5,000</h2>
+        <p class="sub">2-payment plan — fast resolution, high margin</p>
+      </div>
+    </div>
+    <div class="summary-row">
+      <div class="summary-card"><div class="label">Total fee</div><div class="value">$5,000</div></div>
+      <div class="summary-card"><div class="label">Payments</div><div class="value">2</div></div>
+      <div class="summary-card"><div class="label">Due on signing</div><div class="value">$3,000</div></div>
+      <div class="summary-card"><div class="label">Timeline</div><div class="value">Same day – 3 months</div></div>
+    </div>
+    <div class="principle-box">
+      <h3>Payment logic</h3>
+      <p>Penalty abatement is the fastest resolution type — FTA can be done in a single phone call. Two payments only. Heavy front-load at 60% because the bulk of the value is delivered immediately (assessment and abatement request). The second payment is earned on outcome. This is your highest-margin case type and should be positioned as a quick win, often layered on top of another engagement.</p>
+    </div>
+    <table class="milestone-table">
+      <thead><tr><th>Milestone</th><th>Payment</th><th>Trigger & what client must deliver</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="ms-num" style="background: var(--blue);">1</span><span class="ms-title">Engagement, assessment & abatement request</span><div class="ms-desc">Sign agreement, file POA, pull transcripts, identify all assessed penalties, determine FTA eligibility or build reasonable cause argument, request abatement by phone or Form 843</div></td>
+          <td><div class="ms-amount">$3,000</div><div class="ms-pct">60%</div></td>
+          <td><div class="ms-trigger">Due on signing call</div><div class="ms-client">Client delivers: signed agreement, ID, any documentation supporting reasonable cause (medical records, disaster proof, etc.)</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--blue);">2</span><span class="ms-title">Abatement confirmed or appeal filed</span><div class="ms-desc">IRS approves abatement (penalties removed, related interest adjusted), or denial received and appeal filed</div></td>
+          <td><div class="ms-amount">$2,000</div><div class="ms-pct">40%</div></td>
+          <td><div class="ms-trigger">Due on IRS determination</div><div class="ms-client">Client confirms: reviews adjusted balance, decides on next steps if partial abatement</div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="why-box">
+      <h3>Why this works for the client</h3>
+      <p>Penalty abatement has the most immediate, visible ROI of any resolution type. If the client owes $40K and penalties represent $12K of that, a successful abatement just saved them $12K for a $5K fee. That's a 2.4x return they can see on their next IRS statement. The 2-payment structure matches the speed of delivery — often the entire case is resolved within days of signing.</p>
+    </div>
+    <div class="risk-box">
+      <h3>Bundle opportunity</h3>
+      <p>Penalty abatement almost always pairs with another resolution type. Client signs for PA at $5K and IA at $8K = $13K total engagement, structured as a combined 5-payment plan. The PA milestones resolve first (weeks 1–2), then the IA milestones take over (weeks 3–8). This creates early wins that build trust and momentum for the longer IA process.</p>
+    </div>
+  </div>
+
+  <!-- ===== LEVY / LIEN RELEASE ===== -->
+  <div id="levy" class="panel">
+    <div class="panel-header">
+      <div class="badge" style="background: var(--red);">LR</div>
+      <div class="panel-meta">
+        <h2>Levy / lien release — $12,000</h2>
+        <p class="sub">4-payment plan — emergency front-load + resolution follow-through</p>
+      </div>
+    </div>
+    <div class="summary-row">
+      <div class="summary-card"><div class="label">Total fee</div><div class="value">$12,000</div></div>
+      <div class="summary-card"><div class="label">Payments</div><div class="value">4</div></div>
+      <div class="summary-card"><div class="label">Due on signing</div><div class="value">$4,500</div></div>
+      <div class="summary-card"><div class="label">Timeline</div><div class="value">1–8 weeks</div></div>
+    </div>
+    <div class="principle-box">
+      <h3>Payment logic</h3>
+      <p>Levy cases are emergencies — the client's bank account is frozen or wages are being garnished. Urgency is at maximum. Front-load 37.5% on the call because they need immediate action and are highly motivated to pay. The emergency work (contacting IRS, requesting release) happens within 24–48 hours. The remaining payments fund the underlying resolution that prevents future levies.</p>
+    </div>
+    <table class="milestone-table">
+      <thead><tr><th>Milestone</th><th>Payment</th><th>Trigger & what client must deliver</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="ms-num" style="background: var(--red);">1</span><span class="ms-title">Emergency engagement & IRS contact</span><div class="ms-desc">Sign agreement, file POA same day, contact ACS or Revenue Officer to request levy release, assert hardship or propose resolution alternative</div></td>
+          <td><div class="ms-amount">$4,500</div><div class="ms-pct">37.5%</div></td>
+          <td><div class="ms-trigger">Due on signing call — same day</div><div class="ms-client">Client delivers: signed agreement, levy notice, bank/employer info showing garnishment</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--red);">2</span><span class="ms-title">Levy released / garnishment stopped</span><div class="ms-desc">IRS releases levy (Form 668-D issued), bank unfreezes funds or employer stops garnishment</div></td>
+          <td><div class="ms-amount">$3,000</div><div class="ms-pct">25%</div></td>
+          <td><div class="ms-trigger">Due on confirmation of release</div><div class="ms-client">Client delivers: confirmation from bank/employer that levy action has ceased</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--red);">3</span><span class="ms-title">Compliance & financial disclosure</span><div class="ms-desc">File any missing returns, complete financial statement, determine long-term resolution path (IA, OIC, or CNC)</div></td>
+          <td><div class="ms-amount">$2,500</div><div class="ms-pct">21%</div></td>
+          <td><div class="ms-trigger">Due before resolution submission</div><div class="ms-client">Client delivers: all unfiled returns, complete financial documentation</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--red);">4</span><span class="ms-title">Long-term resolution established</span><div class="ms-desc">IA approved, OIC submitted, or CNC granted — future enforcement prevented. Lien withdrawal filed (Form 12277) if applicable</div></td>
+          <td><div class="ms-amount">$2,000</div><div class="ms-pct">16.5%</div></td>
+          <td><div class="ms-trigger">Due on resolution approval</div><div class="ms-client">Client confirms: ongoing compliance plan, direct debit setup if IA</div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="why-box">
+      <h3>Why this works for the client</h3>
+      <p>The client is in crisis mode — their money is literally being taken. The first payment buys immediate action (within hours). The second payment is triggered by the thing they care about most: "Your money is unfrozen" or "Your paycheck is whole again." That's a powerful moment to collect because the relief is tangible and emotional. Milestones 3 and 4 transition into the longer-term fix, by which point the client trusts you because you already saved their bank account.</p>
+    </div>
+    <div class="risk-box">
+      <h3>Key risk</h3>
+      <p>Some clients will want to stop after milestone 2 (levy released) and not continue to the underlying resolution. This is dangerous — without an IA, OIC, or CNC in place, the IRS will simply levy again. The agreement should make clear that milestones 3–4 are not optional add-ons; they're included in the $12K fee specifically because the emergency relief is temporary without them.</p>
+    </div>
+  </div>
+
+  <!-- ===== CDP HEARING ===== -->
+  <div id="cdp" class="panel">
+    <div class="panel-header">
+      <div class="badge" style="background: var(--gray);">CDP</div>
+      <div class="panel-meta">
+        <h2>CDP hearing — $18,000</h2>
+        <p class="sub">5-payment plan across a 3–12 month hearing process</p>
+      </div>
+    </div>
+    <div class="summary-row">
+      <div class="summary-card"><div class="label">Total fee</div><div class="value">$18,000</div></div>
+      <div class="summary-card"><div class="label">Payments</div><div class="value">5</div></div>
+      <div class="summary-card"><div class="label">Due on signing</div><div class="value">$5,000</div></div>
+      <div class="summary-card"><div class="label">Timeline</div><div class="value">3–12 months</div></div>
+    </div>
+    <div class="principle-box">
+      <h3>Payment logic</h3>
+      <p>CDP is the highest-stakes, longest resolution path. The 30-day filing deadline creates extreme urgency at signing — the client literally loses their rights if they don't act immediately. Front-load 28% on signing to cover the emergency filing. Spread the remaining $13K across 4 milestones tied to the hearing lifecycle. The final payment covers the determination and any Tax Court petition if needed.</p>
+    </div>
+    <table class="milestone-table">
+      <thead><tr><th>Milestone</th><th>Payment</th><th>Trigger & what client must deliver</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="ms-num" style="background: var(--gray);">1</span><span class="ms-title">Emergency filing — Form 12153</span><div class="ms-desc">Sign agreement, file POA and Form 12153 within the 30-day window, all IRS collection activity suspended</div></td>
+          <td><div class="ms-amount">$5,000</div><div class="ms-pct">28%</div></td>
+          <td><div class="ms-trigger">Due on signing call — URGENT (30-day deadline)</div><div class="ms-client">Client delivers: signed agreement, CDP/levy notice, all IRS correspondence</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--gray);">2</span><span class="ms-title">Case preparation & financial disclosure</span><div class="ms-desc">Build hearing case, complete financial statements, prepare collection alternative proposal (IA, OIC, or CNC)</div></td>
+          <td><div class="ms-amount">$4,000</div><div class="ms-pct">22%</div></td>
+          <td><div class="ms-trigger">Due before hearing preparation begins</div><div class="ms-client">Client delivers: complete financial documentation, evidence supporting their position</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--gray);">3</span><span class="ms-title">CDP hearing with Appeals</span><div class="ms-desc">Attend hearing (phone or in-person) with Settlement Officer, present case, negotiate collection alternative</div></td>
+          <td><div class="ms-amount">$4,000</div><div class="ms-pct">22%</div></td>
+          <td><div class="ms-trigger">Due before hearing date</div><div class="ms-client">Client delivers: availability for hearing, any final supporting documents</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--gray);">4</span><span class="ms-title">Determination & resolution</span><div class="ms-desc">Settlement Officer issues determination — if favorable, implement agreed resolution. If unfavorable, assess Tax Court petition</div></td>
+          <td><div class="ms-amount">$3,000</div><div class="ms-pct">17%</div></td>
+          <td><div class="ms-trigger">Due on determination letter</div><div class="ms-client">Client confirms: accepts resolution terms or authorises appeal</div></td>
+        </tr>
+        <tr>
+          <td><span class="ms-num" style="background: var(--gray);">5</span><span class="ms-title">Implementation & compliance setup</span><div class="ms-desc">Implement the agreed collection alternative (IA/OIC/CNC), confirm lien status, close out case with compliance roadmap</div></td>
+          <td><div class="ms-amount">$2,000</div><div class="ms-pct">11%</div></td>
+          <td><div class="ms-trigger">Due on resolution implementation</div><div class="ms-client">Client confirms: understands ongoing compliance obligations</div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="why-box">
+      <h3>Why this works for the client</h3>
+      <p>CDP clients are facing the most aggressive IRS enforcement. The 30-day deadline creates natural urgency that makes the $5K signing payment feel justified — "pay now or lose your rights forever." Once the hearing is filed and collection is suspended, the client has breathing room, and the subsequent payments are spread across months. The milestone structure also makes the $18K total feel manageable: 5 payments averaging $3,600 rather than one intimidating number.</p>
+    </div>
+    <div class="risk-box">
+      <h3>Tax Court escalation</h3>
+      <p>If the CDP determination is unfavorable and the client wants to petition Tax Court (30-day deadline), this is the one scenario where attorney involvement is required — EAs/CPAs cannot represent in Tax Court. The $18K fee covers through the determination. A Tax Court petition should be quoted as a separate engagement, typically $10K–$25K additional depending on complexity. This should be disclosed in the original agreement as a potential additional cost.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
