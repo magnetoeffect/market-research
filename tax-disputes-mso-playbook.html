@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tax Disputes Market Entry — MSO Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAFAF8;--s:#FFF;--sa:#F4F3EF;--t:#1A1A18;--tm:#6B6B66;--tf:#9C9C96;--b:#E5E4DF;--green:#2D6A4F;--gbg:#EDF5F0;--purple:#7B4B94;--pbg:#F3EDF7;--amber:#BF6A20;--abg:#FDF3E7;--blue:#2563A8;--bbg:#EBF2FA;--red:#B91C1C;--rbg:#FDF0F0;--gray:#555;--graybg:#F2F2F2;--f:'DM Sans',-apple-system,sans-serif;--m:'DM Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--f);background:var(--bg);color:var(--t);line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:40px 24px 100px}
+h1{font-size:32px;font-weight:700;letter-spacing:-0.5px;margin-bottom:6px}
+.subtitle{font-size:15px;color:var(--tm);max-width:740px;margin-bottom:40px}
+.section{margin-bottom:56px}
+.section-title{font-size:22px;font-weight:700;letter-spacing:-0.3px;margin-bottom:6px}
+.section-sub{font-size:14px;color:var(--tm);margin-bottom:24px;max-width:700px}
+.nav{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--b);margin-bottom:28px}
+.nav button{padding:9px 15px;font-size:12px;font-weight:600;font-family:var(--f);border:none;background:none;color:var(--tm);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap}
+.nav button:hover{color:var(--t)}
+.nav button.on{color:var(--t);border-bottom-color:var(--t)}
+.tab{display:none}.tab.on{display:block}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.grid5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.card{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:16px}
+.card-sm{background:var(--sa);border-radius:8px;padding:12px 14px}
+.card-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--tf);margin-bottom:2px}
+.card-val{font-size:20px;font-weight:700;letter-spacing:-.3px}
+.card-note{font-size:12px;color:var(--tm);margin-top:2px}
+.badge{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;font-weight:700;font-size:15px;color:#fff;flex-shrink:0}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:20px}
+th{text-align:left;padding:10px 12px;background:var(--sa);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--tf);border-bottom:1px solid var(--b)}
+td{padding:12px;border-bottom:1px solid var(--b);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.tag{font-size:12px;font-family:var(--m);color:var(--tm);background:var(--sa);padding:3px 8px;border-radius:4px;display:inline-block;margin-top:4px}
+.tag-warn{font-size:12px;font-weight:600;color:var(--amber);background:#FFF8E1;border:1px solid #FFECB3;padding:3px 8px;border-radius:4px;display:inline-block;margin-top:4px}
+.tag-danger{font-size:12px;font-weight:600;color:var(--red);background:#FFEBEE;border:1px solid #FFCDD2;padding:3px 8px;border-radius:4px;display:inline-block;margin-top:4px}
+.ms-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:700;color:#fff;margin-right:6px;flex-shrink:0}
+.box-green{background:#F1F8E9;border:1px solid #C5E1A5;border-radius:10px;padding:16px 18px;margin-bottom:16px}
+.box-green h4{font-size:13px;font-weight:700;color:#33691E;margin-bottom:4px}
+.box-green p{font-size:14px;color:#33691E}
+.box-red{background:#FFF8F8;border:1px solid #FFCDD2;border-radius:10px;padding:16px 18px;margin-bottom:16px}
+.box-red h4{font-size:13px;font-weight:700;color:#C62828;margin-bottom:4px}
+.box-red p{font-size:14px;color:#5D4037}
+.box-blue{background:var(--bbg);border:1px solid #90CAF9;border-radius:10px;padding:16px 18px;margin-bottom:16px}
+.box-blue h4{font-size:13px;font-weight:700;color:#1565C0;margin-bottom:4px}
+.box-blue p{font-size:14px;color:#1565C0}
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:40px}
+.toc a{display:block;background:var(--s);border:1px solid var(--b);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--t);font-weight:600;font-size:14px;transition:border-color .15s}
+.toc a:hover{border-color:var(--tm)}
+.toc a span{display:block;font-size:12px;color:var(--tm);font-weight:400;margin-top:2px}
+.divider{height:1px;background:var(--b);margin:48px 0}
+.cr{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.cl{font-size:13px;color:var(--tm);white-space:nowrap}
+.cv{font-size:14px;font-weight:500;min-width:52px;text-align:right}
+.cs{width:150px}
+@media(max-width:768px){.grid2,.grid3,.grid4,.grid5{grid-template-columns:1fr 1fr}.toc{grid-template-columns:1fr}h1{font-size:24px}table{font-size:13px}td,th{padding:8px 6px}}
+@media(max-width:480px){.grid2,.grid3,.grid4,.grid5{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Tax disputes market entry — MSO playbook</h1>
+<p class="subtitle">Consolidated market intelligence covering unit economics, case milestones, staffing models, licensing, competitive landscape, advertising channels, and milestone payment structures. Built for MSO operational planning.</p>
+
+<div class="toc">
+  <a href="#economics">Unit economics model<span>Interactive P&L with Goldburd-benchmarked pricing</span></a>
+  <a href="#staffing">Staffing & delivery cost<span>EA/CPA model vs law firm — who does the work</span></a>
+  <a href="#milestones">Case milestones<span>6 resolution types — eligibility, process, deadlines</span></a>
+  <a href="#payments">Payment plans<span>Milestone-based instalment structures per case type</span></a>
+  <a href="#licensing">Licensing & ownership<span>What you need (and don't need) to own the firm</span></a>
+  <a href="#advertising">Advertising landscape<span>Google LSA, PPC, Meta — channels, costs, competitors</span></a>
+  <a href="#goldburd">Goldburd benchmarks<span>Real pricing data from December 2025 call</span></a>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1: UNIT ECONOMICS -->
+<!-- ============================================================ -->
+<div class="section" id="economics">
+<h2 class="section-title">1. Unit economics model</h2>
+<p class="section-sub">Interactive model with your fixed price points. All sliders update the full P&L in real time including closer commission and per-closer monthly economics.</p>
+
+<div class="cr">
+  <span class="cl">Cost per lead</span>
+  <input type="range" class="cs" id="cpl" min="30" max="200" value="70" step="5" oninput="recalc()">
+  <span class="cv" id="cplV">$70</span>
+  <span style="width:8px"></span>
+  <span class="cl">Close rate</span>
+  <input type="range" class="cs" id="cr" min="10" max="50" value="25" step="1" oninput="recalc()">
+  <span class="cv" id="crV">25%</span>
+</div>
+<div class="cr">
+  <span class="cl">Labor cost / case</span>
+  <input type="range" class="cs" id="lc" min="400" max="3000" value="870" step="10" oninput="recalc()">
+  <span class="cv" id="lcV">$870</span>
+  <span style="width:8px"></span>
+  <span class="cl">Closer commission</span>
+  <input type="range" class="cs" id="cc" min="4" max="12" value="7" step="0.5" oninput="recalc()">
+  <span class="cv" id="ccV">7%</span>
+  <span style="width:8px"></span>
+  <span class="cl">Cases / closer / mo</span>
+  <input type="range" class="cs" id="cm" min="10" max="50" value="28" step="1" oninput="recalc()">
+  <span class="cv" id="cmV">28</span>
+</div>
+
+<div class="grid5" style="margin:14px 0 6px">
+  <div class="card-sm"><div class="card-label">Blended revenue</div><div class="card-val" id="mRev">—</div></div>
+  <div class="card-sm"><div class="card-label">Acquisition cost</div><div class="card-val" id="mCpa">—</div></div>
+  <div class="card-sm"><div class="card-label">Labor</div><div class="card-val" id="mLab">—</div></div>
+  <div class="card-sm"><div class="card-label">Commission</div><div class="card-val" id="mCom">—</div></div>
+  <div class="card-sm"><div class="card-label">Net profit / case</div><div class="card-val" id="mNet" style="color:var(--green)">—</div></div>
+</div>
+<div class="grid3" style="margin:10px 0 20px">
+  <div class="card-sm"><div class="card-label">Monthly rev / closer</div><div class="card-val" id="mMRev">—</div></div>
+  <div class="card-sm"><div class="card-label">Monthly profit / closer</div><div class="card-val" id="mMProf" style="color:var(--green)">—</div></div>
+  <div class="card-sm"><div class="card-label">Closer monthly earnings</div><div class="card-val" id="mCEarn">—</div></div>
+</div>
+
+<div style="position:relative;width:100%;height:380px"><canvas id="c1"></canvas></div>
+<div style="display:flex;flex-wrap:wrap;gap:14px;margin:10px 0 20px;font-size:12px;color:var(--tm)">
+  <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:#534AB7"></span>Revenue</span>
+  <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:#EF9F27"></span>Acquisition</span>
+  <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:#D85A30"></span>Labor</span>
+  <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:#7B4B94"></span>Commission</span>
+  <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:#1D9E75"></span>Net profit</span>
+</div>
+
+<div style="position:relative;width:100%;height:280px"><canvas id="c3"></canvas></div>
+<div style="display:flex;flex-wrap:wrap;gap:14px;margin:10px 0 0;font-size:12px;color:var(--tm)">
+  <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:#1D9E75"></span>Monthly net profit contribution per closer</span>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: STAFFING -->
+<!-- ============================================================ -->
+<div class="section" id="staffing">
+<h2 class="section-title">2. Staffing & delivery cost</h2>
+<p class="section-sub">The tax disputes market is not a law firm market. 95%+ of collections cases are handled by EAs and CPAs under Circular 230, not attorneys. This fundamentally changes the cost model.</p>
+
+<div class="grid3" style="margin-bottom:20px">
+  <div class="card">
+    <div class="card-label">Law firm model</div>
+    <div class="card-val" style="color:var(--red)">$6,925</div>
+    <div class="card-note">Attorney $350/hr + paralegal $150/hr<br>13% margin on $8K flat fee</div>
+  </div>
+  <div class="card">
+    <div class="card-label">EA/CPA firm (billing rates)</div>
+    <div class="card-val" style="color:var(--amber)">$2,510</div>
+    <div class="card-note">EA/CPA $125/hr + support $68/hr<br>69% margin on $8K flat fee</div>
+  </div>
+  <div class="card">
+    <div class="card-label">MSO-optimised (loaded salary)</div>
+    <div class="card-val" style="color:var(--green)">$870</div>
+    <div class="card-note">EA/CPA $50/hr + tax assistant $22/hr<br>~89% margin on $8K flat fee</div>
+  </div>
+</div>
+
+<table>
+  <thead><tr><th>Case phase</th><th>EA/CPA lead hrs</th><th>Support staff hrs</th><th>MSO cost (loaded)</th></tr></thead>
+  <tbody>
+    <tr><td>Intake & case assessment</td><td>1.0</td><td>0.5</td><td>$61</td></tr>
+    <tr><td>POA filing & transcript pull</td><td>0</td><td>2.0</td><td>$44</td></tr>
+    <tr><td>Client document collection</td><td>0</td><td>4.0</td><td>$88</td></tr>
+    <tr><td>Financial statement prep (433)</td><td>0.5</td><td>4.0</td><td>$113</td></tr>
+    <tr><td>Strategy determination</td><td>1.5</td><td>0.5</td><td>$86</td></tr>
+    <tr><td>IRS submission & filing</td><td>0.5</td><td>1.5</td><td>$58</td></tr>
+    <tr><td>IRS follow-up & negotiation</td><td>3.0</td><td>3.0</td><td>$216</td></tr>
+    <tr><td>Resolution & close-out</td><td>0.5</td><td>6.0</td><td>$157</td></tr>
+    <tr style="font-weight:700;background:var(--sa)"><td>Total</td><td>7.0 hrs</td><td>21.5 hrs</td><td>$823</td></tr>
+  </tbody>
+</table>
+
+<div class="box-blue">
+  <h4>Key insight: 25/75 lead-to-support split</h4>
+  <p>The EA/CPA only touches the case at intake, strategy, IRS negotiation calls, and sign-off — roughly 7 hours. The tax assistant handles the remaining 21.5 hours of document work, transcript pulls, correspondence, and admin. This is why the MSO model works — you're not paying attorney rates for work that doesn't require an attorney.</p>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: CASE MILESTONES -->
+<!-- ============================================================ -->
+<div class="section" id="milestones">
+<h2 class="section-title">3. Case milestones by resolution type</h2>
+<p class="section-sub">Every collections case flows through one of six resolution channels. The resolution path is determined by the client's ability to pay, not the size of the debt.</p>
+
+<div class="grid3" style="margin-bottom:20px">
+  <div class="card"><div class="card-label">Volume split</div><div style="font-size:13px;color:var(--tm);margin-top:8px">IA: 45% · OIC: 10% · CNC: 20%<br>Penalty abate: 15% · Levy: 8% · CDP: 2%</div></div>
+  <div class="card"><div class="card-label">How resolution is determined</div><div style="font-size:13px;color:var(--tm);margin-top:8px"><strong>Can pay over time →</strong> IA<br><strong>Can't pay at all →</strong> CNC<br><strong>Can pay something →</strong> OIC</div></div>
+  <div class="card"><div class="card-label">Universal gate</div><div style="font-size:13px;color:var(--tm);margin-top:8px">ALL resolution paths require all tax returns to be filed first. This is the single biggest client bottleneck and where most support staff hours go.</div></div>
+</div>
+
+<div class="nav" id="ms-nav">
+  <button class="on" onclick="showTab('ms',0,this)">IA</button>
+  <button onclick="showTab('ms',1,this)">OIC</button>
+  <button onclick="showTab('ms',2,this)">CNC</button>
+  <button onclick="showTab('ms',3,this)">Penalty abate</button>
+  <button onclick="showTab('ms',4,this)">Levy / lien</button>
+  <button onclick="showTab('ms',5,this)">CDP hearing</button>
+</div>
+
+<div class="tab on" data-group="ms">
+  <div class="grid4" style="margin-bottom:16px">
+    <div class="card-sm"><div class="card-label">Timeline</div><div class="card-val">2–8 wks</div></div>
+    <div class="card-sm"><div class="card-label">Debt threshold</div><div class="card-val">≤$50K</div><div class="card-note">Streamlined; up to $250K non-streamlined</div></div>
+    <div class="card-sm"><div class="card-label">Max term</div><div class="card-val">72 mo</div></div>
+    <div class="card-sm"><div class="card-label">Your fee</div><div class="card-val">$8,000</div></div>
+  </div>
+  <table><thead><tr><th>#</th><th>Milestone</th><th>Key actions</th></tr></thead><tbody>
+    <tr><td><span class="ms-num" style="background:var(--green)">1</span></td><td><strong>File all outstanding returns</strong></td><td>Hard gate — IRS rejects any IA if returns are missing</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--green)">2</span></td><td><strong>Pull transcripts & verify liability</strong></td><td>File Form 2848 (POA), pull account transcripts, confirm balances and CSED</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--green)">3</span></td><td><strong>Financial disclosure</strong></td><td>Form 433-F/A — bank statements, pay stubs, assets. Only needed if >$50K</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--green)">4</span></td><td><strong>Submit IA request</strong></td><td>Form 9465 or OPA online. Streamlined = same-day approval possible</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--green)">5</span></td><td><strong>IRS approval</strong></td><td>Penalty rate drops to 0.25%/mo. Lien may be filed if >$25K</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--green)">6</span></td><td><strong>Ongoing compliance</strong></td><td>Client must stay current on all future filings and payments or IA defaults</td></tr>
+  </tbody></table>
+</div>
+
+<div class="tab" data-group="ms">
+  <div class="grid4" style="margin-bottom:16px">
+    <div class="card-sm"><div class="card-label">Timeline</div><div class="card-val">6–24 mo</div></div>
+    <div class="card-sm"><div class="card-label">Application fee</div><div class="card-val">$205</div></div>
+    <div class="card-sm"><div class="card-label">Acceptance rate (FY24)</div><div class="card-val">21.4%</div></div>
+    <div class="card-sm"><div class="card-label">Your fee</div><div class="card-val">$10,000</div></div>
+  </div>
+  <table><thead><tr><th>#</th><th>Milestone</th><th>Key actions</th></tr></thead><tbody>
+    <tr><td><span class="ms-num" style="background:var(--purple)">1</span></td><td><strong>File all returns + get current</strong></td><td>All returns filed, estimated payments current, employer deposits current</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--purple)">2</span></td><td><strong>Financial investigation</strong></td><td>Form 433-A/B (OIC) — most document-intensive phase. Full financial picture</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--purple)">3</span></td><td><strong>RCP calculation & offer amount</strong></td><td>Calculate Reasonable Collection Potential. Offer must ≥ RCP</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--purple)">4</span></td><td><strong>Submit OIC package</strong></td><td>Form 656 + $205 fee + 20% lump sum. Collection suspended during review</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--purple)">5</span></td><td><strong>IRS review (6–24 months)</strong></td><td>CSED tolled. IRS may request additional docs. May file lien</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--purple)">6</span></td><td><strong>Determination</strong></td><td>Accepted → pay remaining + 5-year compliance. Rejected → 30 days to appeal</td></tr>
+  </tbody></table>
+  <div class="box-red"><h4>Critical: CSED is tolled</h4><p>The 10-year collection clock pauses while the OIC is pending. If rejected, the IRS has more time to collect. All payments made during review are non-refundable.</p></div>
+</div>
+
+<div class="tab" data-group="ms">
+  <div class="grid4" style="margin-bottom:16px">
+    <div class="card-sm"><div class="card-label">Timeline</div><div class="card-val">2–6 wks</div></div>
+    <div class="card-sm"><div class="card-label">Fee</div><div class="card-val">$0</div><div class="card-note">No IRS application fee</div></div>
+    <div class="card-sm"><div class="card-label">CSED impact</div><div class="card-val">Keeps running</div></div>
+    <div class="card-sm"><div class="card-label">Your fee</div><div class="card-val">$5,000</div></div>
+  </div>
+  <table><thead><tr><th>#</th><th>Milestone</th><th>Key actions</th></tr></thead><tbody>
+    <tr><td><span class="ms-num" style="background:var(--amber)">1</span></td><td><strong>File all returns</strong></td><td>Same compliance gate as all other paths</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--amber)">2</span></td><td><strong>Demonstrate hardship</strong></td><td>Form 433-F/A — income ≤ allowable living expenses = zero disposable income</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--amber)">3</span></td><td><strong>IRS places account in CNC</strong></td><td>TC 530 coded. All collection ceases. Lien may still be filed</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--amber)">4</span></td><td><strong>Periodic review</strong></td><td>IRS monitors income annually. If income increases → CNC removed</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--amber)">5</span></td><td><strong>CSED expiration</strong></td><td>If client stays in hardship, debt expires at 10-year mark. "Run out the clock"</td></tr>
+  </tbody></table>
+  <div class="box-green"><h4>Strategic advantage over OIC</h4><p>Unlike OIC, the CSED clock keeps running during CNC. The debt can expire. Interest accrues but becomes uncollectible. CNC clients are also future OIC candidates once their situation stabilises.</p></div>
+</div>
+
+<div class="tab" data-group="ms">
+  <div class="grid4" style="margin-bottom:16px">
+    <div class="card-sm"><div class="card-label">Timeline</div><div class="card-val">Same day – 3 mo</div></div>
+    <div class="card-sm"><div class="card-label">Savings potential</div><div class="card-val">20–40%</div><div class="card-note">Of total balance</div></div>
+    <div class="card-sm"><div class="card-label">FTA criteria</div><div class="card-val">3-yr clean</div></div>
+    <div class="card-sm"><div class="card-label">Your fee</div><div class="card-val">$5,000</div></div>
+  </div>
+  <table><thead><tr><th>#</th><th>Milestone</th><th>Key actions</th></tr></thead><tbody>
+    <tr><td><span class="ms-num" style="background:var(--blue)">1</span></td><td><strong>Identify penalties & eligibility</strong></td><td>Pull transcripts, identify all assessed penalties by type and period</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--blue)">2</span></td><td><strong>Request FTA or build reasonable cause</strong></td><td>FTA: single phone call if criteria met. RC: written statement + Form 843</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--blue)">3</span></td><td><strong>IRS determination</strong></td><td>FTA = often immediate. RC = 1–3 months. Appeal if denied</td></tr>
+  </tbody></table>
+  <div class="box-green"><h4>Highest margin case type</h4><p>FTA can be resolved in a single phone call. $5K fee against ~$350 delivery cost. Almost always bundled with IA or OIC — client signs for PA ($5K) + IA ($8K) = $13K combined engagement.</p></div>
+</div>
+
+<div class="tab" data-group="ms">
+  <div class="grid4" style="margin-bottom:16px">
+    <div class="card-sm"><div class="card-label">Levy release</div><div class="card-val">1–21 days</div></div>
+    <div class="card-sm"><div class="card-label">Bank levy hold</div><div class="card-val">21 days</div><div class="card-note">Before permanent seizure</div></div>
+    <div class="card-sm"><div class="card-label">Lien withdrawal</div><div class="card-val">30–60 days</div></div>
+    <div class="card-sm"><div class="card-label">Your fee</div><div class="card-val">$12,000</div></div>
+  </div>
+  <table><thead><tr><th>#</th><th>Milestone</th><th>Key actions</th></tr></thead><tbody>
+    <tr><td><span class="ms-num" style="background:var(--red)">1</span></td><td><strong>Emergency intake — Day 0</strong></td><td>File POA same day. Contact ACS/Revenue Officer to request release</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--red)">2</span></td><td><strong>Levy released</strong></td><td>Form 668-D issued. Bank unfreezes funds. Garnishment stops</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--red)">3</span></td><td><strong>Compliance & financial disclosure</strong></td><td>File missing returns, complete 433, determine resolution path</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--red)">4</span></td><td><strong>Establish long-term resolution</strong></td><td>IA/OIC/CNC approved. Lien withdrawal (Form 12277) if eligible</td></tr>
+  </tbody></table>
+  <div class="box-red"><h4>21-day bank levy window</h4><p>Bank levy funds are frozen for 21 days before seizure. This is the most time-sensitive case type — action must happen within hours of engagement, not days.</p></div>
+</div>
+
+<div class="tab" data-group="ms">
+  <div class="grid4" style="margin-bottom:16px">
+    <div class="card-sm"><div class="card-label">Request deadline</div><div class="card-val">30 days</div><div class="card-note">From notice date — absolute</div></div>
+    <div class="card-sm"><div class="card-label">Timeline</div><div class="card-val">3–12 mo</div></div>
+    <div class="card-sm"><div class="card-label">Collection suspended</div><div class="card-val">Yes</div></div>
+    <div class="card-sm"><div class="card-label">Your fee</div><div class="card-val">$18,000</div></div>
+  </div>
+  <table><thead><tr><th>#</th><th>Milestone</th><th>Key actions</th></tr></thead><tbody>
+    <tr><td><span class="ms-num" style="background:var(--gray)">1</span></td><td><strong>File Form 12153 within 30 days</strong></td><td>All collection suspended. Missing deadline = no Tax Court rights</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--gray)">2</span></td><td><strong>Prepare hearing case</strong></td><td>Build arguments, complete financials, propose collection alternative</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--gray)">3</span></td><td><strong>CDP hearing with Appeals</strong></td><td>Settlement Officer — independent from Collections. Usually by phone</td></tr>
+    <tr><td><span class="ms-num" style="background:var(--gray)">4</span></td><td><strong>Determination</strong></td><td>If settled → Form 12256 withdrawal. If unfavorable → 30 days to petition Tax Court</td></tr>
+  </tbody></table>
+  <div class="box-red"><h4>Only case type requiring attorney (if escalated)</h4><p>Tax Court petition is the one scenario where EAs/CPAs cannot represent. This is the sole point in the entire collections process where attorney involvement may be needed — and only if the CDP determination is unfavorable and the client wants judicial review.</p></div>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4: PAYMENT PLANS -->
+<!-- ============================================================ -->
+<div class="section" id="payments">
+<h2 class="section-title">4. Milestone payment plans</h2>
+<p class="section-sub">Every payment is tied to a real case milestone. The client can't stall on documents because their case pauses until payment and materials are received.</p>
+
+<div class="nav" id="pay-nav">
+  <button class="on" onclick="showTab('pay',0,this)">IA — $8K</button>
+  <button onclick="showTab('pay',1,this)">OIC — $10K</button>
+  <button onclick="showTab('pay',2,this)">CNC — $5K</button>
+  <button onclick="showTab('pay',3,this)">PA — $5K</button>
+  <button onclick="showTab('pay',4,this)">Levy — $12K</button>
+  <button onclick="showTab('pay',5,this)">CDP — $18K</button>
+</div>
+
+<!-- IA PAYMENT -->
+<div class="tab on" data-group="pay">
+<table><thead><tr><th>Milestone</th><th>Payment</th><th>Trigger</th></tr></thead><tbody>
+  <tr><td><span class="ms-num" style="background:var(--green)">1</span> <strong>Engagement & POA</strong><br><span style="font-size:13px;color:var(--tm)">Sign, file 2848, pull transcripts</span></td><td><strong>$2,500</strong><br><span style="font-size:12px;color:var(--tf)">31%</span></td><td><span class="tag-warn">Due on signing call</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--green)">2</span> <strong>Financial disclosure</strong><br><span style="font-size:13px;color:var(--tm)">Complete 433-F/A, determine IA type</span></td><td><strong>$2,500</strong><br><span style="font-size:12px;color:var(--tf)">31%</span></td><td><span class="tag">Before 433 submission</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--green)">3</span> <strong>IA submission</strong><br><span style="font-size:13px;color:var(--tm)">Submit 9465 or call ACS</span></td><td><strong>$1,500</strong><br><span style="font-size:12px;color:var(--tf)">19%</span></td><td><span class="tag">Before IRS submission</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--green)">4</span> <strong>IRS approval</strong><br><span style="font-size:13px;color:var(--tm)">IA approved, first payment date set</span></td><td><strong>$1,500</strong><br><span style="font-size:12px;color:var(--tf)">19%</span></td><td><span class="tag">On approval</span></td></tr>
+</tbody></table>
+</div>
+
+<!-- OIC PAYMENT -->
+<div class="tab" data-group="pay">
+<table><thead><tr><th>Milestone</th><th>Payment</th><th>Trigger</th></tr></thead><tbody>
+  <tr><td><span class="ms-num" style="background:var(--purple)">1</span> <strong>Engagement & investigation</strong></td><td><strong>$3,000</strong><br><span style="font-size:12px;color:var(--tf)">30%</span></td><td><span class="tag-warn">Due on signing call</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--purple)">2</span> <strong>Financial disclosure & RCP</strong></td><td><strong>$2,500</strong><br><span style="font-size:12px;color:var(--tf)">25%</span></td><td><span class="tag">Before RCP analysis</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--purple)">3</span> <strong>OIC package submission</strong></td><td><strong>$2,000</strong><br><span style="font-size:12px;color:var(--tf)">20%</span></td><td><span class="tag">Before IRS submission</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--purple)">4</span> <strong>IRS negotiation</strong></td><td><strong>$1,500</strong><br><span style="font-size:12px;color:var(--tf)">15%</span></td><td><span class="tag">90 days after submission</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--purple)">5</span> <strong>Resolution</strong></td><td><strong>$1,000</strong><br><span style="font-size:12px;color:var(--tf)">10%</span></td><td><span class="tag">On determination</span></td></tr>
+</tbody></table>
+</div>
+
+<!-- CNC PAYMENT -->
+<div class="tab" data-group="pay">
+<table><thead><tr><th>Milestone</th><th>Payment</th><th>Trigger</th></tr></thead><tbody>
+  <tr><td><span class="ms-num" style="background:var(--amber)">1</span> <strong>Engagement & transcripts</strong></td><td><strong>$2,000</strong><br><span style="font-size:12px;color:var(--tf)">40%</span></td><td><span class="tag-warn">Due on signing call</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--amber)">2</span> <strong>Hardship submission</strong></td><td><strong>$1,500</strong><br><span style="font-size:12px;color:var(--tf)">30%</span></td><td><span class="tag">Before IRS submission</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--amber)">3</span> <strong>CNC confirmed</strong></td><td><strong>$1,500</strong><br><span style="font-size:12px;color:var(--tf)">30%</span></td><td><span class="tag">On CNC confirmation</span></td></tr>
+</tbody></table>
+</div>
+
+<!-- PA PAYMENT -->
+<div class="tab" data-group="pay">
+<table><thead><tr><th>Milestone</th><th>Payment</th><th>Trigger</th></tr></thead><tbody>
+  <tr><td><span class="ms-num" style="background:var(--blue)">1</span> <strong>Engagement & abatement request</strong></td><td><strong>$3,000</strong><br><span style="font-size:12px;color:var(--tf)">60%</span></td><td><span class="tag-warn">Due on signing call</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--blue)">2</span> <strong>Abatement confirmed</strong></td><td><strong>$2,000</strong><br><span style="font-size:12px;color:var(--tf)">40%</span></td><td><span class="tag">On IRS determination</span></td></tr>
+</tbody></table>
+</div>
+
+<!-- LEVY PAYMENT -->
+<div class="tab" data-group="pay">
+<table><thead><tr><th>Milestone</th><th>Payment</th><th>Trigger</th></tr></thead><tbody>
+  <tr><td><span class="ms-num" style="background:var(--red)">1</span> <strong>Emergency engagement</strong></td><td><strong>$4,500</strong><br><span style="font-size:12px;color:var(--tf)">37.5%</span></td><td><span class="tag-danger">Due on signing — URGENT</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--red)">2</span> <strong>Levy released</strong></td><td><strong>$3,000</strong><br><span style="font-size:12px;color:var(--tf)">25%</span></td><td><span class="tag">On release confirmation</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--red)">3</span> <strong>Compliance & disclosure</strong></td><td><strong>$2,500</strong><br><span style="font-size:12px;color:var(--tf)">21%</span></td><td><span class="tag">Before resolution submission</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--red)">4</span> <strong>Long-term resolution</strong></td><td><strong>$2,000</strong><br><span style="font-size:12px;color:var(--tf)">16.5%</span></td><td><span class="tag">On resolution approval</span></td></tr>
+</tbody></table>
+</div>
+
+<!-- CDP PAYMENT -->
+<div class="tab" data-group="pay">
+<table><thead><tr><th>Milestone</th><th>Payment</th><th>Trigger</th></tr></thead><tbody>
+  <tr><td><span class="ms-num" style="background:var(--gray)">1</span> <strong>Emergency filing — Form 12153</strong></td><td><strong>$5,000</strong><br><span style="font-size:12px;color:var(--tf)">28%</span></td><td><span class="tag-danger">Due on signing — 30-day deadline</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--gray)">2</span> <strong>Case preparation</strong></td><td><strong>$4,000</strong><br><span style="font-size:12px;color:var(--tf)">22%</span></td><td><span class="tag">Before hearing prep begins</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--gray)">3</span> <strong>CDP hearing</strong></td><td><strong>$4,000</strong><br><span style="font-size:12px;color:var(--tf)">22%</span></td><td><span class="tag">Before hearing date</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--gray)">4</span> <strong>Determination</strong></td><td><strong>$3,000</strong><br><span style="font-size:12px;color:var(--tf)">17%</span></td><td><span class="tag">On determination letter</span></td></tr>
+  <tr><td><span class="ms-num" style="background:var(--gray)">5</span> <strong>Implementation</strong></td><td><strong>$2,000</strong><br><span style="font-size:12px;color:var(--tf)">11%</span></td><td><span class="tag">On resolution implementation</span></td></tr>
+</tbody></table>
+</div>
+
+<div class="box-blue" style="margin-top:8px">
+  <h4>Bundle play</h4>
+  <p>Most clients need penalty abatement + IA or OIC. PA ($5K) + IA ($8K) = $13K combined, structured as a 5-payment plan where PA milestones resolve in weeks 1–2 (early win, builds trust) then IA milestones take over for weeks 3–8.</p>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 5: LICENSING -->
+<!-- ============================================================ -->
+<div class="section" id="licensing">
+<h2 class="section-title">5. Licensing & ownership</h2>
+<p class="section-sub">Unlike law firms (Rule 5.4) or medical practices (CPOM), there is no "corporate practice of tax resolution" doctrine. You need zero professional licenses to own a tax resolution firm.</p>
+
+<div class="grid2" style="margin-bottom:20px">
+  <div class="card">
+    <div class="card-label">What owners need</div>
+    <div style="font-size:14px;color:var(--tm);margin-top:8px">
+      <strong style="color:var(--green)">Nothing.</strong> No CPA, no EA, no law license. Form a standard LLC or corporation. Hire EAs/CPAs as employees. They maintain their own credentials. You handle everything else — marketing, intake, case management, billing, HR.
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label">What employees need</div>
+    <div style="font-size:14px;color:var(--tm);margin-top:8px">
+      <strong>EAs:</strong> Federal enrollment, 72hrs CE/3yrs, PTIN<br>
+      <strong>CPAs:</strong> State license (not needed for non-attest work but gives credibility)<br>
+      <strong>Tax assistants:</strong> PTIN only (if preparing returns)<br>
+      <strong>Attorneys:</strong> Only needed for Tax Court — <2% of cases
+    </div>
+  </div>
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <div class="card-label">Fee-sharing advantage</div>
+    <div style="font-size:14px;color:var(--tm);margin-top:8px">
+      No Rule 5.4 equivalent for CPAs/EAs. Circular 230 has no prohibition on fee-sharing with management entities. Your MSO can structure economics as percentage of revenue, per-case fee, or flat management fee — far more flexibility than legal MSOs.
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label">If you brand as a "CPA firm"</div>
+    <div style="font-size:14px;color:var(--tm);margin-top:8px">
+      State Board of Accountancy rules apply. Most states allow up to 49% non-CPA ownership. But for tax resolution specifically, there's no commercial advantage to CPA branding. The large national firms (Optima, Anthem, Community Tax) are all standard LLCs.
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 6: ADVERTISING -->
+<!-- ============================================================ -->
+<div class="section" id="advertising">
+<h2 class="section-title">6. Advertising landscape</h2>
+<p class="section-sub">Three-layer funnel: Meta creates demand (top), Google PPC captures intent (mid), Google LSA closes with trust (bottom). The national firms are strong on Meta + PPC but structurally weak on LSA.</p>
+
+<div class="grid3" style="margin-bottom:20px">
+  <div class="card">
+    <div class="card-label">Google LSA</div>
+    <div class="card-val">$30–$80</div>
+    <div class="card-note">Cost per lead. Two categories: "Tax Specialist" and "Lawyer." Nationals have landing pages but no real local presence. Your MSO advantage: genuine local offices + reviews.</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Google PPC</div>
+    <div class="card-val">$15–$50</div>
+    <div class="card-note">Cost per click on tax resolution keywords. "Tax relief" = $15–$40. "Tax attorney near me" = $20–$50. Nationals bid aggressively. Target long-tail local keywords.</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Meta (Facebook/Instagram)</div>
+    <div class="card-val">$25–$60</div>
+    <div class="card-note">Cost per lead. Colder leads but larger volume. Interrupt-based. National firms spend heavily here. Your advantage: authenticity + practitioner-to-camera creative.</div>
+  </div>
+</div>
+
+<div class="box-blue">
+  <h4>LSA service toggles to activate</h4>
+  <p><strong>Turn on:</strong> IRS audit representation · IRS problem consulting · Tax problem consulting<br>
+  <strong>Leave off:</strong> Tax preparation (floods intake with $300 prep leads). IRS filing only if your team can quickly qualify unfiled-return callers as potential collections cases.</p>
+</div>
+
+<table>
+  <thead><tr><th>National competitor</th><th>Channels</th><th>Min debt</th><th>Investigation fee</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Optima Tax Relief</strong></td><td>TV, radio, Meta, PPC, LSA</td><td>$10,000</td><td>$295–$495</td><td>Largest in market. $3B+ resolved. Mixed reviews on communication</td></tr>
+    <tr><td><strong>Community Tax</strong></td><td>Meta, PPC, LSA, SEO</td><td>$10,000</td><td>Varies</td><td>"Best Overall" on multiple review sites. Bilingual</td></tr>
+    <tr><td><strong>Anthem Tax Services</strong></td><td>TV, Meta, PPC</td><td>$10,000</td><td>$500</td><td>100% money-back guarantee. Strong reviews</td></tr>
+    <tr><td><strong>J. David Tax Law</strong></td><td>PPC, LSA, SEO</td><td>Varies</td><td>Free</td><td>Multi-state law firm. Strong NY LSA presence</td></tr>
+    <tr><td><strong>Larson Tax Relief</strong></td><td>PPC, SEO</td><td>$5,000</td><td>Free</td><td>Most affordable. Free investigation phase</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="divider"></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 7: GOLDBURD BENCHMARKS -->
+<!-- ============================================================ -->
+<div class="section" id="goldburd">
+<h2 class="section-title">7. Goldburd McCone benchmarks</h2>
+<p class="section-sub">Real pricing and operational data from December 29, 2025 call (Magneto × Goldburd McCone | Tax Cases Growth Modelling).</p>
+
+<div class="grid2" style="margin-bottom:20px">
+  <div class="card">
+    <div class="card-label">Collections pricing</div>
+    <div style="font-size:14px;color:var(--tm);margin-top:8px">
+      <strong>Standard retainer: $10,000</strong><br>
+      Range: $10K–$20K (Benjamin: "between 10 and 20, less than 20 generally")<br>
+      Steven narrowed: $10K–$15K typical<br>
+      Hardship discount: down to $7,500<br>
+      <strong>Minimum debt: $50,000</strong>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label">Audit/examination pricing</div>
+    <div style="font-size:14px;color:var(--tm);margin-top:8px">
+      <strong>Range: $25,000–$40,000</strong><br>
+      Benjamin: "That's essentially litigation"<br>
+      Can go higher on complex cases<br>
+      90% of other firms don't do audits — this is Goldburd's differentiator
+    </div>
+  </div>
+</div>
+
+<div class="grid3" style="margin-bottom:20px">
+  <div class="card">
+    <div class="card-label">Case mix</div>
+    <div style="font-size:14px;color:var(--tm);margin-top:8px">60–70% collections, 30–40% audits. Collections = "low hanging fruit." More volume, easier to market.</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Monthly volume</div>
+    <div style="font-size:14px;color:var(--tm);margin-top:8px">10–20 new collections cases/month. 8–10 new audit cases/month. ~20–30 high-value cases in the millions annually.</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Investigation model (proposed)</div>
+    <div style="font-size:14px;color:var(--tm);margin-top:8px">$1,000–$1,500 investigation fee. File POA, pull transcripts, assess case. Tangible deliverable before full retainer. Benjamin: "like what we did with probate."</div>
+  </div>
+</div>
+
+<div class="box-green">
+  <h4>Key quote from Steven Goldburd</h4>
+  <p>"What makes us different than all of the other tax resolution firms is the fact that we deal with audits. 90% of those companies will not do that." — Collections is the volume play; audits are the premium play. Your MSO should start with collections (EA/CPA-deliverable) and layer in audit capability once the operation is proven.</p>
+</div>
+</div>
+
+</div><!-- end wrap -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function showTab(group,idx,btn){
+  document.querySelectorAll('[data-group="'+group+'"]').forEach((t,i)=>{t.classList.toggle('on',i===idx)});
+  btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+const L=['IA\n$8K','OIC\n$10K','CNC\n$5K','Penalty\nabate $5K','Levy/lien\n$12K','CDP\n$18K'];
+const vol=[45,10,20,15,8,2];
+const price=[8000,10000,5000,5000,12000,18000];
+const laborMult=[0.85,1.6,0.75,0.4,0.9,1.8];
+
+function gV(id){return parseFloat(document.getElementById(id).value)}
+function gCpa(){return Math.round(gV('cpl')/(gV('cr')/100))}
+function gBlend(){let t=0;for(let i=0;i<6;i++)t+=price[i]*(vol[i]/100);return Math.round(t)}
+function gLabors(b){return laborMult.map(m=>Math.round(b*m))}
+
+const ch1=new Chart(document.getElementById('c1'),{
+  type:'bar',data:{labels:L,datasets:[
+    {label:'Revenue',data:price,backgroundColor:'#534AB7',borderRadius:4},
+    {label:'Acquisition',data:[0,0,0,0,0,0],backgroundColor:'#EF9F27',borderRadius:4},
+    {label:'Labor',data:[0,0,0,0,0,0],backgroundColor:'#D85A30',borderRadius:4},
+    {label:'Commission',data:[0,0,0,0,0,0],backgroundColor:'#7B4B94',borderRadius:4},
+    {label:'Net profit',data:[0,0,0,0,0,0],backgroundColor:'#1D9E75',borderRadius:4}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},title:{display:true,text:'Unit economics per case — your fixed price points',font:{size:14,weight:500},padding:{bottom:12}},tooltip:{callbacks:{label:c=>c.dataset.label+': $'+c.raw.toLocaleString()}}},scales:{x:{grid:{display:false},ticks:{font:{size:11},maxRotation:0}},y:{ticks:{callback:v=>'$'+v.toLocaleString()},grid:{color:'rgba(128,128,128,0.1)'}}}}
+});
+
+const ch3=new Chart(document.getElementById('c3'),{
+  type:'bar',data:{labels:L,datasets:[{data:[0,0,0,0,0,0],backgroundColor:'#1D9E75',borderRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},title:{display:true,text:'Monthly net profit contribution per closer by resolution type',font:{size:14,weight:500},padding:{bottom:12}},tooltip:{callbacks:{label:c=>'$'+c.raw.toLocaleString()+' / month'}}},scales:{x:{grid:{display:false},ticks:{font:{size:11},maxRotation:0}},y:{ticks:{callback:v=>'$'+v.toLocaleString()},grid:{color:'rgba(128,128,128,0.1)'}}}}
+});
+
+function recalc(){
+  const cp=gV('cpl'),cr=gV('cr')/100,lc=gV('lc'),ccr=gV('cc')/100,cm=gV('cm');
+  const cpa=Math.round(cp/cr),bl=gBlend(),labors=gLabors(lc);
+  const comms=price.map(p=>Math.round(p*ccr));
+  const profits=price.map((p,i)=>p-cpa-labors[i]-comms[i]);
+  const blLab=Math.round(labors.reduce((t,l,i)=>t+l*(vol[i]/100),0));
+  const blCom=Math.round(comms.reduce((t,c,i)=>t+c*(vol[i]/100),0));
+  const blProf=bl-cpa-blLab-blCom;
+
+  document.getElementById('cplV').textContent='$'+cp;
+  document.getElementById('crV').textContent=Math.round(cr*100)+'%';
+  document.getElementById('lcV').textContent='$'+lc.toLocaleString();
+  document.getElementById('ccV').textContent=(ccr*100)+'%';
+  document.getElementById('cmV').textContent=cm;
+  document.getElementById('mRev').textContent='$'+bl.toLocaleString();
+  document.getElementById('mCpa').textContent='$'+cpa.toLocaleString();
+  document.getElementById('mLab').textContent='$'+blLab.toLocaleString();
+  document.getElementById('mCom').textContent='$'+blCom.toLocaleString();
+  document.getElementById('mNet').textContent='$'+blProf.toLocaleString();
+  document.getElementById('mNet').style.color=blProf>0?'var(--green)':'var(--red)';
+  document.getElementById('mMRev').textContent='$'+(bl*cm).toLocaleString();
+  document.getElementById('mMProf').textContent='$'+(blProf*cm).toLocaleString();
+  document.getElementById('mMProf').style.color=blProf>0?'var(--green)':'var(--red)';
+  document.getElementById('mCEarn').textContent='$'+(blCom*cm).toLocaleString();
+
+  ch1.data.datasets[1].data=price.map(()=>cpa);
+  ch1.data.datasets[2].data=labors;
+  ch1.data.datasets[3].data=comms;
+  ch1.data.datasets[4].data=profits;
+  ch1.update();
+
+  const mp=profits.map((p,i)=>Math.round(p*(vol[i]/100)*cm));
+  ch3.data.datasets[0].data=mp;
+  ch3.data.datasets[0].backgroundColor=mp.map(v=>v>=0?'#1D9E75':'#E24B4A');
+  ch3.update();
+}
+recalc();
+</script>
+</body>
+</html>
